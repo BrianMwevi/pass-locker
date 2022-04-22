@@ -40,7 +40,16 @@ class TestUser(unittest.TestCase):
     tearDown method that cleans up the contact_list after each test case
     """
     User.users = []
+    User.user_count = 0
 
+  def test_check_user(self):
+    """
+    test_check_user: test case to get user object from the list of users
+    """
+    user,created = self.first_new_user.register()
+    self.assertTrue(created,True)
+    self.assertEqual(user.user_id,1)
+    
 
   def test_generate_user_id(self):
     """
