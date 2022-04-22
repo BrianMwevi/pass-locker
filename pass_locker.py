@@ -1,4 +1,5 @@
 class User:
+  users = []
   def __init__(self, email, password):
     self.email = email
     self.password = password
@@ -6,9 +7,14 @@ class User:
     self.accounts = None
   
   def register(self):
-    pass
+    if self in self.users:
+      return False
+    self.users.append(self)
+    return True
+    
 
   def check_user(self):
+    # if
     pass
 
   def login(self, username, password):
@@ -22,8 +28,4 @@ class User:
 
   def delete_account(self):
     pass
-
-  def add_social_account(self):
-    pass
-
   
