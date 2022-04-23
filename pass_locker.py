@@ -62,5 +62,11 @@ class User:
     def reset_password(self):
         pass
 
+    # @classmethod
     def delete_account(self):
-        pass
+        user = self.get_user(self)
+        if user:
+            self.logout()
+            self.users.remove(user)
+            return True
+        return False
