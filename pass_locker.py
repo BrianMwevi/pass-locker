@@ -24,7 +24,7 @@ class User:
     @classmethod
     def get_user(cls, self):
         for user in cls.users:
-            if user.user_id == self.user_id:
+            if user.is_authenticated and user.user_id == self.user_id:
                 return user
         return False
 
@@ -39,8 +39,9 @@ class User:
             if user.email == email and user.password == password:
                 user.is_authenticated = True
                 return True
+        print("Wrong credentials, try again!")
         return False
-    
+
     def logout(self):
         user = self.get_user(self)
         if user:
@@ -48,8 +49,15 @@ class User:
             return True
         return False
 
-    def update_account(self, old_password, new_password):
-        pass
+    def update_password(self, old_password, new_password):
+        user = self.get_user(self)
+        if user.password == old_password:
+            user.password = new_password
+            self.logout()
+            email = 'first@gmail.com'
+            password = 'new_pass'
+            return self.login(email, password)
+        return False
 
     def reset_password(self):
         pass
