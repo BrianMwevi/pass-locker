@@ -36,7 +36,11 @@ class User:
 
     @classmethod
     def login(cls, email, password):
-        pass
+        for user in cls.users:
+            if user.email == email and user.password == password:
+                user.is_authenticated = True
+                return True
+        return False
 
     def update_account(self,old_password, new_password):
         pass
