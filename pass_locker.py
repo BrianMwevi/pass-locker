@@ -1,44 +1,48 @@
-import random as rand
-
 class User:
-  users = []
-  user_count = 0
+    users = []
+    user_count = 0
 
-  def __init__(self, email, password):
-    self.email = email
-    self.password = password
-    self.is_authenticated = False
-    self.accounts = None
-  
-  def register(self):
-    user_exist = self.check_user()
-    if user_exist:
-      return False
-    self.user_id = self.generate_user_id()
-    self.users.append(self)
-    return True
-    
+    def __init__(self, email, password):
+        self.email = email
+        self.password = password
+        self.is_authenticated = False
+        self.accounts = None
 
-  def check_user(self):
-    if self in self.users:
-      return True
-    return False
+    def register(self):
+        user_exist = self.check_user()
+        if user_exist:
+            return False
+        self.user_id = self.generate_user_id()
+        self.users.append(self)
+        return [self, True]
 
-  @classmethod
-  def generate_user_id(cls):
-    cls.user_count+=1
-    return cls.user_count
+    def check_user(self):
+        if self in self.users:
+            return True
+        return False
 
-  def login(self, username, password):
-    pass 
+    @classmethod
+    def get_user(cls,self):
+        for user in cls.users:
+            if user.user_id == self.user_id:
+                return user
+            return False
 
-  def update_account(self):
-    pass
 
-  def reset_password(self):
-    pass
+    @classmethod
+    def generate_user_id(cls):
+        cls.user_count += 1
+        return cls.user_count
 
-  def delete_account(self):
-    pass
+    @classmethod
+    def login(cls, email, password):
+        pass
 
-  
+    def update_account(self,old_password, new_password):
+        pass
+
+    def reset_password(self):
+        pass
+
+    def delete_account(self):
+        pass
