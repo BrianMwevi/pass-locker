@@ -95,6 +95,16 @@ class TestUser(unittest.TestCase):
         self.assertTrue(user1)
         self.assertTrue(get_user1.is_authenticated)
 
+    def test_user_logout(self):
+        """
+        test_user_login test for checking if user is logged out and is_authenticated is False
+        """
+        self.first_new_user.register()
+        self.first_new_user.login('first@gmail.com', 'first1123')
+        self.assertTrue(self.first_new_user.is_authenticated)
+        self.assertTrue(User.logout(self.first_new_user))
+        self.assertFalse(self.first_new_user.is_authenticated)
+
 
 if __name__ == "__main__":
     unittest.main()
