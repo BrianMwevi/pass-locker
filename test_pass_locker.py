@@ -38,7 +38,7 @@ class TestUser(unittest.TestCase):
         """
         User.users = []
         User.user_count = 0
-    
+
     def test_save_multiple_users(self):
         """
         test_save_multiple_users test case to check saving registering and saving multiple users
@@ -47,7 +47,8 @@ class TestUser(unittest.TestCase):
         self.second_new_user.register()
         self.third_new_user.register()
         self.assertEqual(len(User.users), 3)
-        self.assertEqual(User.user_count,3)
+        self.assertEqual(User.user_count, 3)
+
     def test_check_user(self):
         """
         test_check_user: test case to get user object from the list of users
@@ -80,6 +81,21 @@ class TestUser(unittest.TestCase):
         self.assertEqual(user.user_id, 1)
         self.assertEqual(user2.user_id, 2)
 
+    def test_user_login(self):
+        """
+        test_user_login: test case to check if a user can login
+        Args:
+            username, password
+
+        Return:
+            Boolean: True if logged in and False if not
+        """
+
+        self.first_new_user.register()
+        self.first_new_user.login('first@gmail.com', 'first1123')
+        user = User.get_user(self.first_new_user)
+        self.assertEqual(user.user_id, 1)
+        self.assertTrue(True)
    
 
 
