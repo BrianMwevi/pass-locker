@@ -21,9 +21,9 @@ class User:
             return True
         return False
 
-    @classmethod
-    def get_user(cls, self):
-        for user in cls.users:
+    # @classmethod
+    def get_user(self):
+        for user in self.users:
             if user.is_authenticated and user.user_id == self.user_id:
                 return user
         return False
@@ -43,14 +43,14 @@ class User:
         return False
 
     def logout(self):
-        user = self.get_user(self)
+        user = self.get_user()
         if user:
             user.is_authenticated = False
             return True
         return False
 
     def update_password(self, old_password, new_password):
-        user = self.get_user(self)
+        user = self.get_user()
         if user.password == old_password:
             user.password = new_password
             self.logout()
@@ -62,9 +62,8 @@ class User:
     def reset_password(self):
         pass
 
-    # @classmethod
     def delete_account(self):
-        user = self.get_user(self)
+        user = self.get_user()
         if user:
             self.logout()
             self.users.remove(user)
