@@ -66,21 +66,6 @@ class TestUser(unittest.TestCase):
         self.third_new_user.register()
         self.assertEqual(User.user_count, 3)
 
-    def test_get_user(self):
-        """
-        test_get_user: test case to get user
-        Args:
-            user_id
-        Return:
-            user object if found and False if not
-        """
-        self.first_new_user.register()
-        self.second_new_user.register()
-        user = User.get_user(self.first_new_user)
-        user2 = User.get_user(self.second_new_user)
-        self.assertEqual(user.user_id, 1)
-        self.assertEqual(user2.user_id, 2)
-
     def test_user_login(self):
         """
         test_user_login: test case to check if a user can login
@@ -95,6 +80,23 @@ class TestUser(unittest.TestCase):
         self.assertTrue(user1)
         self.assertTrue(get_user1.is_authenticated)
 
+    def test_get_user(self):
+        """
+        test_get_user: test case to get user and MUST be authenticated
+        Args:
+            user_id
+        Return:
+            user object if found and False if not
+        """
+        self.first_new_user.register()
+        self.second_new_user.register()
+        User.login('first@gmail.com', 'first1123')
+        User.login('second@gmail.com', 'second1123')
+        user = User.get_user(self.first_new_user)
+        user2 = User.get_user(self.second_new_user)
+        self.assertEqual(user.user_id, 1)
+        self.assertEqual(user2.user_id, 2)
+
     def test_user_logout(self):
         """
         test_user_login test for checking if user is logged out and is_authenticated is False
@@ -104,6 +106,20 @@ class TestUser(unittest.TestCase):
         self.assertTrue(self.first_new_user.is_authenticated)
         self.assertTrue(User.logout(self.first_new_user))
         self.assertFalse(self.first_new_user.is_authenticated)
+
+    def test_update_password(self):
+        """
+        test_update_password test case to check if user can successfully update login password, be logged out and use the new password to login again
+        Args:
+            old_password, new_password
+        return:
+            True/False
+        """
+        self.first_new_user.register()
+        User.login('first@gmail.com', 'first1123')
+        self.first_new_user.update_password('first1123', 'new_pass')
+        loggedIn = User.login('first@gmail.com', 'new_pass')
+        self.assertTrue(loggedIn)
 
 
 if __name__ == "__main__":
