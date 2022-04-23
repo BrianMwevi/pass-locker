@@ -86,17 +86,14 @@ class TestUser(unittest.TestCase):
         test_user_login: test case to check if a user can login
         Args:
             username, password
-
         Return:
             Boolean: True if logged in and False if not
         """
-
         self.first_new_user.register()
-        self.first_new_user.login('first@gmail.com', 'first1123')
-        user = User.get_user(self.first_new_user)
-        self.assertEqual(user.user_id, 1)
-        self.assertTrue(True)
-   
+        user1 = self.first_new_user.login('first@gmail.com', 'first1123')
+        get_user1 = User.get_user(self.first_new_user)
+        self.assertTrue(user1)
+        self.assertTrue(get_user1.is_authenticated)
 
 
 if __name__ == "__main__":
