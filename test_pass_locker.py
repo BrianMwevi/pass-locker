@@ -53,6 +53,7 @@ class TestUser(unittest.TestCase):
         """
         test_check_user: test case to get user object from the list of users
         """
+        # TODO: Review test case, NOT correct
         user, created = self.first_new_user.register()
         self.assertTrue(created, True)
         self.assertEqual(user.user_id, 1)
@@ -61,6 +62,7 @@ class TestUser(unittest.TestCase):
         """
         test_generate_user_id: test case to assign an Id to a successfully registered user
         """
+        # TODO: Review test case, LACKS clarity -- incomplete checks
         self.first_new_user.register()
         self.second_new_user.register()
         self.third_new_user.register()
@@ -81,6 +83,7 @@ class TestUser(unittest.TestCase):
         self.assertTrue(get_user1.is_authenticated)
 
     def test_get_user(self):
+        # TODO: Review docs Args -- NOT correct
         """
         test_get_user: test case to get user and MUST be authenticated
         Args:
@@ -98,6 +101,7 @@ class TestUser(unittest.TestCase):
         self.assertEqual(user2.user_id, 2)
 
     def test_user_logout(self):
+        # TODO: Review docs -- VERY INCORRECT (user_login??)
         """
         test_user_login test for checking if user is logged out and is_authenticated is False
         """
@@ -108,6 +112,7 @@ class TestUser(unittest.TestCase):
         self.assertFalse(self.first_new_user.is_authenticated)
 
     def test_update_password(self):
+        # TODO: Review docs -- Expound on return values
         """
         test_update_password test case to check if user can successfully update login password, be logged out and use the new password to login again
         Args:
@@ -120,6 +125,16 @@ class TestUser(unittest.TestCase):
         self.first_new_user.update_password('first1123', 'new_pass')
         loggedIn = User.login('first@gmail.com', 'new_pass')
         self.assertTrue(loggedIn)
+
+    def test_delete_account(self):
+        """
+        test_delete_account test to check if user can delete their account from the list of accounts
+        """
+        self.first_new_user.register()
+        User.login('first@gmail.com', 'first1123')
+        account_deleted = self.first_new_user.delete_account()
+        self.assertTrue(account_deleted)
+        self.assertFalse(self.first_new_user.check_user())
 
 
 if __name__ == "__main__":
