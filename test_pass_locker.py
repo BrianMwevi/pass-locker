@@ -55,7 +55,7 @@ class TestUser(unittest.TestCase):
         """
         # TODO: Review test case, NOT correct
         user, created = self.first_new_user.register()
-        self.assertTrue(created, True)
+        self.assertTrue(created)
         self.assertEqual(user.user_id, 1)
 
     def test_generate_user_id(self):
@@ -78,7 +78,7 @@ class TestUser(unittest.TestCase):
         """
         self.first_new_user.register()
         user1 = self.first_new_user.login('first@gmail.com', 'first1123')
-        get_user1 = User.get_user(self.first_new_user)
+        get_user1 = self.first_new_user.get_user()
         self.assertTrue(user1)
         self.assertTrue(get_user1.is_authenticated)
 
@@ -95,8 +95,8 @@ class TestUser(unittest.TestCase):
         self.second_new_user.register()
         User.login('first@gmail.com', 'first1123')
         User.login('second@gmail.com', 'second1123')
-        user = User.get_user(self.first_new_user)
-        user2 = User.get_user(self.second_new_user)
+        user = self.first_new_user.get_user()
+        user2 = self.second_new_user.get_user()
         self.assertEqual(user.user_id, 1)
         self.assertEqual(user2.user_id, 2)
 
