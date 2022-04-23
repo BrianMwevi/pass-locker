@@ -65,6 +65,21 @@ class TestUser(unittest.TestCase):
         self.third_new_user.register()
         self.assertEqual(User.user_count, 3)
 
+    def test_get_user(self):
+        """
+        test_get_user: test case to get user
+        Args:
+            user_id
+        Return:
+            user object if found and False if not
+        """
+        self.first_new_user.register()
+        self.second_new_user.register()
+        user = User.get_user(self.first_new_user)
+        user2 = User.get_user(self.second_new_user)
+        self.assertEqual(user.user_id, 1)
+        self.assertEqual(user2.user_id, 2)
+
    
 
 
