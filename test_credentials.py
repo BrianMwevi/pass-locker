@@ -1,6 +1,5 @@
 import unittest
 
-from sqlalchemy import true
 from pass_locker import User
 from credentials import Credentials
 
@@ -32,8 +31,8 @@ class TestCredentials(unittest.TestCase):
         """
         tearDown method that cleans up the contact_list after each test case
         """
-        # User.users = []
-        # User.user_count = 0
+        User.users = []
+        User.user_count = 0
 
     def test_create_social_account(self):
         """
