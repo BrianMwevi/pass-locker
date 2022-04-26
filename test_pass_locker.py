@@ -1,3 +1,5 @@
+from venv import create
+from credentials import Credentials
 from pass_locker import User
 import unittest
 
@@ -53,9 +55,10 @@ class TestUser(unittest.TestCase):
         """
         test_check_user: test case to get user object from the list of users
         """
-        # TODO: Review test case, NOT correct
-        user, created = self.first_new_user.register()
+        created = self.first_new_user.register()
+        user, logged_in = User.login('first@gmail.com', 'first1123')
         self.assertTrue(created)
+        self.assertTrue(logged_in)
         self.assertEqual(user.user_id, 1)
 
     def test_generate_user_id(self):
@@ -128,13 +131,17 @@ class TestUser(unittest.TestCase):
 
     def test_delete_account(self):
         """
-        test_delete_account test to check if user can delete their account from the list of accounts
+        test_delete_account test to check if a user can delete their account from the list of users accounts
         """
         self.first_new_user.register()
-        User.login('first@gmail.com', 'first1123')
-        account_deleted = self.first_new_user.delete_account()
-        self.assertTrue(account_deleted)
-        self.assertFalse(self.first_new_user.check_user())
+        user, logged_in = User.login('first@gmail.com', 'first1123')
+        users = User.users
+        deleted = user.delete_account()
+        user_exist = user.get_user()
+        self.assertTrue(logged_in)
+        self.assertTrue(deleted)
+        self.assertEqual(len(users), 0)
+        self.assertFalse(user_exist)
 
 
 if __name__ == "__main__":
