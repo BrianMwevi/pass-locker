@@ -150,7 +150,7 @@ def show_codes(speed=0.04):
 
 
 def main():
-    os.system('clear')
+    os.system('cls|clear')
     sleep(0.8)
     print_message("Hello! ")
     sleep(0.8)
@@ -161,24 +161,24 @@ def main():
     print("\nPlease login...")
 
     user, logged_in = user_login()
-    os.system('clear')
+    os.system('cls|clear')
     print_message('Use below shortcodes to navigate the app\n\n')
     speed = 0.04
     while True:
         action = show_codes(speed).lower()
         speed = 0
         if action == "c":
-            os.system('clear')
+            os.system('cls|clear')
             sleep(0.8)
             account_name = request("Enter name of account")
             ask_username_and_password(user, account_name)
 
         elif action == 's':
-            os.system('clear')
+            os.system('cls|clear')
             show_accounts(user)
 
         elif action == 'e':
-            os.system('clear')
+            os.system('cls|clear')
             has_account = show_accounts(user)
             if has_account:
                 edit_account(user)
@@ -193,7 +193,7 @@ def main():
             print_message("Functionality will be available soon\n\n", '', 0.03)
             sleep(0.8)
         elif action == "q":
-            os.system('clear')
+            os.system('cls|clear')
             print("\n" * 17)
             print_message("It was nice sticking around!")
             print_message(
