@@ -61,7 +61,6 @@ def ask_username_and_password(user, account_name):
 
 def edit_account(user, count_error=0):
     account_name = request("Which account do you want to edit?")
-    print(count_error)
 
     user, account = user.get_account(account_name)
     if account:
@@ -74,7 +73,7 @@ def edit_account(user, count_error=0):
 
     else:
         print("No such account, try again\n")
-        show_accounts()
+        show_accounts(user)
         return edit_account(user, count_error=+1)
 
 
@@ -112,7 +111,7 @@ def update_password(user, old_password, new_password):
     return user.update_password(old_password, new_password)
 
 
-def delete_account(user, account_name):
+def delete_account(user):
     account_name = request("Enter account name to delete")
     accounts, deleted = user.delete_account(account_name)
     if deleted:
@@ -120,9 +119,9 @@ def delete_account(user, account_name):
             f"{account_name} account deleted successfully!\n")
         show_accounts(user)
     else:
-        print_message("No such account, please try again")
+        print_message("No such account, please try again\n")
         show_accounts(user)
-        return delete_account(user, account_name)
+        return delete_account(user)
 
 
 def request(ask, hide_input=False):
@@ -185,7 +184,7 @@ def main():
         elif action == 'd':
             has_account = show_accounts(user)
             if has_account:
-                delete_account(user, account_name)
+                delete_account(user)
 
         elif action == "nav":
             show_codes()
