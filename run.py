@@ -161,8 +161,8 @@ def main():
     print("\nPlease login...")
 
     user, logged_in = user_login()
-    os.system('cls|clear')
-    print_message('Use below short codes to navigate the app\n\n')
+    os.system('clear')
+    print_message('Use below shortcodes to navigate the app\n\n')
     speed = 0.04
     while True:
         action = show_codes(speed).lower()
@@ -189,6 +189,9 @@ def main():
 
         elif action == "nav":
             show_codes()
+        elif action == 'cup':
+            print_message("Functionality will be available soon\n\n", '', 0.03)
+            sleep(0.8)
         elif action == "q":
             os.system('clear')
             print("\n" * 17)
