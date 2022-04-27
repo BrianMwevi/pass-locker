@@ -187,10 +187,8 @@ def main():
             if has_account:
                 delete_account(user, account_name)
 
-            # if has_account:
-            # else:
-            #     print_message("You don't have any accounts")
-
+        elif action == "nav":
+            show_codes()
         elif action == "q":
             os.system('clear')
             print("\n" * 17)
